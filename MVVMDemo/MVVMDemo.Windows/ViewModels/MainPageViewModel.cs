@@ -11,6 +11,7 @@ namespace MVVMDemo.ViewModels
 {
     public class MainPageViewModel : INotifyPropertyChanged
     {
+
         private string name;
 
         public event PropertyChangedEventHandler PropertyChanged;

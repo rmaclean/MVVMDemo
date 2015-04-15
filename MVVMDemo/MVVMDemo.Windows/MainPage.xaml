@@ -5,13 +5,43 @@
     xmlns:local="using:MVVMDemo"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" RequestedTheme="Light">
+    mc:Ignorable="d" RequestedTheme="Light" FontFamily="Global User Interface">
+    <Page.Resources>
+        <Style x:Key="listViewStyle" TargetType="ListView">
+            <Setter Property="Background" Value="AliceBlue"/>
+        </Style>
+
+        <Style TargetType="TextBox" x:Key="usethis">
+            <Setter Property="Background" Value="#558877"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#558877"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+        <DataTemplate x:Key="ThingListTemplate">
+            <Grid Background="#FFA40EB3" Width="600" Height="100">
+                <TextBlock TextWrapping="Wrap" Text="{Binding}" Foreground="White" FontSize="26.667"/>
+            </Grid>
+        </DataTemplate>
+        <ControlTemplate x:Key="ButtonControlTemplate1" TargetType="Button">
+            <Border BorderThickness="1" Height="183" Width="365" Background="#FFDBDBDB">
+                <Border BorderBrush="Black" BorderThickness="5" HorizontalAlignment="Left" Height="173" Margin="0,-1,0,0" VerticalAlignment="Top" Width="355" Background="#FF218391"/>
+            </Border>
+        </ControlTemplate>
+    </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel Margin="0,50,0,0">
-            <TextBox x:Name="textBox" TextWrapping="Wrap" Text="{Binding Name, Mode=OneWay}"/>
-            <Button x:Name="button" Content="Button" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding Add}"/>
-            <ListView x:Name="listView" Height="333" ItemsSource="{Binding Items}"/>
+            <CheckBox x:Name="checkBox" Content="CheckBox" VerticalAlignment="Stretch"/>
+            <TextBox Style="{StaticResource usethis}" x:Name="textBox" TextWrapping="Wrap" Text="{Binding Name, Mode=TwoWay}"/>
+            <Button Content="Button" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding Add}" IsEnabled="{Binding IsChecked, ElementName=checkBox}" Template="{StaticResource ButtonControlTemplate1}"/>
+            <StackPanel Orientation="Horizontal">
+                <ListView x:Name="listView" ItemsSource="{Binding Items}" ItemTemplate="{StaticResource ThingListTemplate}" Style="{Binding Source={StaticResource listViewStyle}}"/>
+                <ListView x:Name="listView_Copy" ItemsSource="{Binding Items}" ItemTemplate="{StaticResource ThingListTemplate}" Style="{Binding Source={StaticResource listViewStyle}}"/>
+            </StackPanel>
         </StackPanel>
 
     </Grid>
